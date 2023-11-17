@@ -1,0 +1,51 @@
+<!-- HTML (caja_registradora.html) -->
+{% extends 'public/base_cpanel.html' %}
+{% block title %}Caja Registradora{% endblock %}
+
+{% block customCSS %}
+  <link rel="stylesheet" href="{{ url_for('static', filename ='assets/css/caja_registradora.css') }}" />
+{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h2 class="text-center mt-4 mb-4">Caja Registradora</h2>
+
+    <!-- Formulario para agregar productos al carrito -->
+    <form id="formAgregarProducto">
+      <div class="mb-3">
+        <label for="producto" class="form-label">Producto</label>
+        <select class="form-select" id="producto" required>
+          {% for producto in productos %}
+            <option value="{{ producto.id_producto }}" data-precio="{{ producto.precio }}">{{ producto.nombre_producto }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="cantidad" required>
+      </div>
+      <button type="button" class="btn btn-primary" onclick="agregarAlCarrito()">Agregar al Carrito</button>
+    </form>
+
+    <!-- Carrito de compras -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio Unitario</th>
+          <th>Cantidad</th>
+          <th>Total Producto</th>
+        </tr>
+      </thead>
+      <tbody id="tablaCarrito"></tbody>
+    </table>
+    
+    <!-- Agrega el total en tu HTML -->
+    <div id="total" class="mt-3">Total: $0.00</div>
+      <button type="button" class="btn btn-success mt-3" onclick="facturar()">Facturar</button>
+    </div>
+  </div>
+
+  <!-- Script para la funcionalidad de la caja registradora -->
+  <script src="{{ url_for('static', filename ='assets/customJS/caja_registradora.js') }}"></script>
+{% endblock %}

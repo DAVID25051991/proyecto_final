@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factura</title>
+</head>
+<body>
+    <h1>Factura</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+        </tr>
+        {% for item in factura %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>${{ item[1] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Total: ${{ total }}</h3>
+</body>
+</html>

@@ -1,0 +1,88 @@
+{% extends 'public/base_cpanel.html' %}
+
+{% block title %}Lista de productos{% endblock %}
+<!--Inicio del block-->
+{% block body %}
+<div class="row justify-content-star mb-2">
+
+  <div class="card justify-content-end" style="border-radius: 0px !important">
+    <div class="row justify-content-center mb-2">
+      <div class="col-md-12 mb-4">
+        <h3 class="text-center mt-5 mb-3">LISTA DE PRODUCTOS</h3>
+        <hr />
+      </div>
+
+
+      <div class="row justify-content-end">
+        <div class="col-md-3 mt-4 py-2">
+          <a href="{{ url_for('registrar_producto') }}" class="btn btn-primary">
+            Registrar Nuevo Producto
+          </a>
+        </div>
+        <div class="col-md-6 mt-4 py-2">
+          <input type="search2" id="search2" class="form-control border-0 shadow-none" placeholder="Buscar producto..."
+            onkeyup="buscadorTable2('productos')" />
+        </div>
+
+      </div>
+
+      <div class="row justify-content-center mb-2">
+        <div class="table-responsive text-nowrap table-hover">
+          <table table-hover id="productos" class="table table-striped table-bordered" cellspacing="0" width="80%">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Cantidad</th>
+                <th>precio</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for producto in productos %}
+              <tr id="producto_{{ producto.id_producto }}">
+                <td>{{ loop.index }}</td>
+                <td>{{ producto.nombre_producto }}</td>
+                <td>{{ producto.descripcion_producto }}</td>
+                <td>{{ producto.cantidad }}</td>
+                <td>
+                  {% if producto.precio is defined and producto.precio is number %}
+                  $ {{ '{:,.0f}'.format(producto.precio).replace(',', '') }}
+                  {% else %}
+                  Precio no disponible
+                  {% endif %}
+                </td>
+                <td width="10px">
+      
+                  <a
+                  href="{{ url_for('viewEditarproducto', id = producto.id_producto) }}"
+                  class="btn btn-success btn-sm"
+                  tooltip="Actualizar Registro">
+                  <i class="bi bi-arrow-clockwise"></i>
+                  Actualizar
+                </a>
+                  <a
+                  href="#"
+                  onclick="eliminarproducto('{{ producto.id_producto }}','{{ producto.foto_producto }}');"
+                  class="btn btn-danger btn-sm"
+                  data-bs-toggle="tooltip"
+                  data-bs-offset="0,4"
+                  data-bs-placement="top"
+                  data-bs-html="true"
+                  title="<span>Eliminar producto {{ producto.nombre_producto }}</span>">
+                  <i class="bi bi-trash3"></i>
+                  Eliminar
+                </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
