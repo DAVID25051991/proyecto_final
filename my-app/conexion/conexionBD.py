@@ -7,7 +7,7 @@ def connectionBD():
         connection = mysql.connector.connect(
             host="localhost",
             user="root",
-            passwd="",
+            passwd="Evenat1123*",
             database="crud_python",
             charset='utf8mb4',
             collation='utf8mb4_unicode_ci',
